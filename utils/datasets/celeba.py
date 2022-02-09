@@ -15,7 +15,7 @@ CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 ## Create a custom Dataset class
 class CelebADataset(Dataset):
-    def __init__(self, root_dir=os.path.join(CUR_DIR, '../../data/celeba'), transform=None):
+    def __init__(self, root_dir=os.path.join(CUR_DIR, '../../data/celeba'), attr_file_path='list_attr_celeba.txt', transform=None):
         """
         Args:
           root_dir (string): Directory with all the images
@@ -49,7 +49,7 @@ class CelebADataset(Dataset):
         
         self.filenames = []
         self.annotations = []
-        with open(f'{root_dir}/list_attr_celeba.txt') as f:
+        with open(attr_file_path) as f:
             for i, line in enumerate(f.readlines()):
                 line = re.sub(' *\n', '', line)
                 if i == 0:
