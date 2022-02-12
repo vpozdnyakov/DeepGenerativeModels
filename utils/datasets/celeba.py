@@ -15,7 +15,10 @@ CUR_DIR = os.path.dirname(os.path.abspath(__file__))
 
 ## Create a custom Dataset class
 class CelebADataset(Dataset):
-    def __init__(self, root_dir=os.path.join(CUR_DIR, '../../data/celeba'), attr_file_path='list_attr_celeba.txt', transform=None):
+    def __init__(
+        self, root_dir=os.path.join(CUR_DIR, 'data/celeba'), 
+        attr_file_path='list_attr_celeba.txt', 
+        transform=None):
         """
         Args:
           root_dir (string): Directory with all the images
@@ -35,9 +38,6 @@ class CelebADataset(Dataset):
             download_path = f'{root_dir}/img_align_celeba.zip'
             # Download the dataset from google drive
             gdown.download(download_url, download_path, quiet=False)
-
-#             os.makedirs(dataset_folder)
-
             # Unzip the downloaded file 
             with zipfile.ZipFile(download_path, 'r') as ziphandler:
                 ziphandler.extractall(root_dir)
