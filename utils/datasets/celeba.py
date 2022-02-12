@@ -18,7 +18,8 @@ class CelebADataset(Dataset):
     def __init__(
         self, root_dir=os.path.join(CUR_DIR, 'data/celeba'), 
         attr_file_path='list_attr_celeba.txt', 
-        transform=None):
+        transform=None, 
+        crop=True):
         """
         Args:
           root_dir (string): Directory with all the images
@@ -32,12 +33,16 @@ class CelebADataset(Dataset):
         dataset_folder = f'{root_dir}/img_align_celeba/'
         self.dataset_folder = os.path.abspath(dataset_folder)
         if not os.path.isdir(dataset_folder):
-            # URL for the CelebA dataset
-            download_url = 'https://drive.google.com/uc?id=1cNIac61PSA_LqDFYFUeyaQYekYPc75NH'
             # Path to download the dataset to
             download_path = f'{root_dir}/img_align_celeba.zip'
+            # URL for the CelebA dataset
             # Download the dataset from google drive
-            gdown.download(download_url, download_path, quiet=False)
+            if crop:
+                download_url = 'https://drive.google.com/file/d/12agH1nWYcj7PAoErxQQgFdOAohgS9qE_/view?usp=sharing'
+                gdown.download(download_url, download_path, quiet=False, fuzzy=True)
+            else:
+                download_url = 'https://drive.google.com/uc?id=1cNIac61PSA_LqDFYFUeyaQYekYPc75NH'
+                gdown.download(download_url, download_path, quiet=False)
             # Unzip the downloaded file 
             with zipfile.ZipFile(download_path, 'r') as ziphandler:
                 ziphandler.extractall(root_dir)
