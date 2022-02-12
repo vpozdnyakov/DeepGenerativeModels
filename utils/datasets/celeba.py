@@ -25,6 +25,7 @@ class CelebADataset(Dataset):
           root_dir (string): Directory with all the images
           transform (callable, optional): transform to be applied to each image sample
         """
+        self.crop = crop
         # Read names of images in the root directory
         
         # Path to folder with the dataset
@@ -68,7 +69,10 @@ class CelebADataset(Dataset):
         self.annotations = np.array(self.annotations)    
               
     def __len__(self): 
-        return len(self.filenames)
+        if self.crop:
+            return 500
+        else:
+            return len(self.filenames)
 
     def __getitem__(self, idx):
         # Get the path to the image 
