@@ -31,19 +31,18 @@ class CelebADataset(Dataset):
         # Path to folder with the dataset
         if not os.path.isdir(root_dir):
             os.makedirs(root_dir)
-        if crop:
-            dataset_folder = f'{root_dir}/img_align_celeba_crop/'
-        else:
-            dataset_folder = f'{root_dir}/img_align_celeba/'
+        dataset_folder = f'{root_dir}/img_align_celeba/'
         self.dataset_folder = os.path.abspath(dataset_folder)
-        if not os.path.isdir(dataset_folder):
+        if crop:
+            download_path = f'{root_dir}/img_align_celeba_crop.zip'
+        else:
+            download_path = f'{root_dir}/img_align_celeba.zip'
+        if not os.path.isfile(download_path):
             if crop:
                 download_url = 'https://drive.google.com/file/d/12agH1nWYcj7PAoErxQQgFdOAohgS9qE_/view?usp=sharing'
-                download_path = f'{root_dir}/img_align_celeba_crop.zip'
                 gdown.download(download_url, download_path, quiet=False, fuzzy=True)
             else:
                 download_url = 'https://drive.google.com/uc?id=1cNIac61PSA_LqDFYFUeyaQYekYPc75NH'
-                download_path = f'{root_dir}/img_align_celeba.zip'
                 gdown.download(download_url, download_path, quiet=False)
             # Unzip the downloaded file 
             with zipfile.ZipFile(download_path, 'r') as ziphandler:
