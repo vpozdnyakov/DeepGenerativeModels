@@ -31,7 +31,10 @@ class CelebADataset(Dataset):
         # Path to folder with the dataset
         if not os.path.isdir(root_dir):
             os.makedirs(root_dir)
-        dataset_folder = f'{root_dir}/img_align_celeba/'
+        if crop:
+            dataset_folder = f'{root_dir}/img_align_celeba_crop/'
+        else:
+            dataset_folder = f'{root_dir}/img_align_celeba/'
         self.dataset_folder = os.path.abspath(dataset_folder)
         if not os.path.isdir(dataset_folder):
             if crop:
