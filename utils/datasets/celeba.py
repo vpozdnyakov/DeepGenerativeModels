@@ -2,7 +2,6 @@ import os
 import zipfile 
 import gdown
 import torch
-from natsort import natsorted
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
@@ -48,11 +47,7 @@ class CelebADataset(Dataset):
             with zipfile.ZipFile(download_path, 'r') as ziphandler:
                 ziphandler.extractall(root_dir)
 
-        image_names = os.listdir(self.dataset_folder)
-
         self.transform = transform 
-        image_names = natsorted(image_names)
-        
         self.filenames = []
         self.annotations = []
         with open(attr_file_path) as f:
